@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>homework5</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  </head>
+  <body>
+    <!--navbar-->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Mukhriza Tunnisa</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="#"></a>
+                <a class="nav-link" type="button" onclick="tombolDaftar()">Daftar</a>
+                <a class="nav-link" type="button" onclick="tombolList()">List Pendaftaran</a>
+            </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="utama">
+    <!--form-->
+    <div id="formPendaftaran">
+    <form class="row g-3">
+    <h1 class="text-md-center">Pendaftaran</h1>
+        <div class="input-group">
+            <span class="input-group-text">Nama</span>
+            <input  class="form-control" type="text" id="Name" arial-label="Name">
+        </div>
+        <div class="input-group">
+            <span class="input-group-text">Umur</span>
+            <input  class="form-control" type="text" id="Umur" arial-label="Umur">
+        </div>
+        <div class="input-group">
+            <span class="input-group-text">Uang sangu</span>
+            <input  class="form-control" type="number" id="Uang" arial-label="Uang">
+        </div>
+    <button type="button" id="tombol" class="btn btn-success mb-3 align-self-center" onclick="submitdata()">Daftar</button>
+    </form>
+    </div>
+    <h1 id="judul_Daftar_peserta" class="text-md-center m-2"></h1>
+    <div class="d-flex justify-content-center table" id="table"></div>
+    <p class="text-center" id="rata"></p>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  <script>
+    let data_pendaftar=[]
+
+    class web{
+        constructor(){
+
+        }
+        hapustable(){
+            const hapus1 = document.getElementById('rata')
+            hapus1.innerHTML = null
+            const hapus2 = document.getElementById("table")
+            hapus2.innerHTML = null
+            const hapus3 = document.getElementById("judul_Daftar_pesertsa")
+            hapus3.innerHTML = null
+        }
+
+        headertable(){
+            const juduldaftar = document.getElementById("judul_Daftar_peserta")
+            juduldaftar.innerHTML="Daftar Peserta"
+            const thead = document.createElement('thead')
+            thead.id = "thead"
+            const theas1 = document.getElementById("table")
+            theas1.className = "d-flex justiffy-content-center table"
+            const tr = document.createElement("tr")
+            tr.className = "align-middle text-center"
+            const Headnomortext = document.createElement("th")
+            Headnomortext.innerText="nomor"
+            Headnomortext.scope ="col"
+            const Headnamatext = document.createElement("th")
+            Headnamatext.innerHTML ="nama"
+            Headnamatext.scope ="col"
+            const Headumurtext = document.createElement("th")
+            Headumurtext.innerHTML ="umur"
+            Headumurtext.scope ="col"
+            const Headuangtext = document.createElement("th")
+            Headuangtext.innerHTML ="uang"
+            Headuangtext.scope ="col"
+            const table = document.getElementById("table")
+            table.className="table"
+            table.id = "tble"
+            tr.append(Headnomortext,Headnamatext,Headumurtext,Headuangtext)
+            thead.appendChild(tr)
+            table.append(thead)
+            theas1.appendChild(table)
+        }
+
+        hapusForm(){
+            const hapus = document.getElementById('formPendaftaran')
+            hapus.innerHTML = null
+        }
+
+        Munculform(){
+            const formPendaftaran =  document.getElementById("formPendaftaran")
+            const form = document.getElementById('form')
+            form.className ="row g-3"
+
+            const judul = document.createElement("h1")
+            judul.className ="text-md-center"
+            judul.innerHTML ="Pendaftaran"
+
+            const div1 = document.createElement("div")
+            div1.className = "input-group"
+            const span1 = document.createElement("span")
+            span1.className ="input-group-text"
+            span1.innerHTML ="nama"
+            const input1 = document.createElement("input")
+            input1.id="name"
+            input1.type ="text"
+            input1.ariaLabel="name"
+            input1.className ="form-control"
+            div1.append(span1,input1)
+
+            const div2 = document.createElement("div")
+            div1.className = "input-group"
+            const span2 = document.createElement("span")
+            span1.className ="input-group-text"
+            span1.innerHTML ="umur"
+            const input2 = document.createElement("input")
+            input1.id="umur"
+            input1.type ="number"
+            input1.ariaLabel="umur"
+            input1.className ="form-control"
+            div1.append(span2,input2)
+
+            const div3 = document.createElement("div")
+            div1.className = "input-group"
+            const span3 = document.createElement("span")
+            span1.className ="input-group-text"
+            span1.innerHTML ="uang sangu"
+            const input3 = document.createElement("input")
+            input1.id="uang"
+            input1.type ="number"
+            input1.ariaLabel="uang"
+            input1.className ="form-control"
+            div1.append(span3,input3)
+
+            const button1 = document.createElement("button")
+            button1.id="tombol"
+            button1.type="button"
+            button1.className="btn btn-primary mb-3 align-self-center"
+            button1.setAttribute('onlick' , 'submitdata()')
+            button1.innerHTML="Daftar"
+
+            form.append(judul,div1,div2,div3,button1)
+            formPendaftaran.appendChild(form)
+        }
+    }
+
+    function tampilrata(){
+        let rataUang = 0
+        let rataUmur = 0
+        let banyakPeserta = data_pendaftar.length
+        if (banyakPeserta == 0) {
+            const rata = document.getElementById("rata")
+            rata.innerHTML = "ISI DATA TERLEBIH DAHULU"
+        }else{
+            for(peserta in data_pendaftar){
+                const umur  =data_pendaftar[peserta].umur
+                const uang =data_pendaftar[peserta].uang
+                rataUang = rataUang + Number(uang)
+                rataUmur = rataUmur + Number(umur)
+            }
+            rataUang =rataUang / banyakPeserta
+            rataUmur =rataUmur / rataUmur
+            const rata = document.getElementById("rata")
+            rata.innerHTML="rata rata pendaftar memiliki uang sangu sebesar" + rataUang
+            console.log(rataUmur)
+            console.log(rataUang)
+        }
+    }
+
+    function tampiltable(){
+        for(peserta in data_pendaftar){
+            const name= data_pendaftar[peserta].nama
+            const umur= data_pendaftar[peserta].umur
+            const uang= data_pendaftar[peserta].uang
+            const tbody = document.createElement('tbody')
+            tbody.className ="table"
+            const theas1 = document.getElementById("tble")
+            const tr = document.createElement("tr")
+            tr.className="align-middle text-center"
+            const Bodynomortext = document.createElement("th")
+            peserta++
+            Bodynomortext.innerText = peserta
+            peserta--
+            const bodynamatext = document.createElement("td")
+            bodynamatext.innerHTML=name
+            const bodyumurtext = document.createElement("td")
+            bodyumurtext.innerHTML=umur
+            const bodyuangtext = document.createElement("td")
+            bodyuangtext.innerHTML=uang
+            tr.append(Bodynomortext,bodynamatext,bodyumurtext,bodyuangtext)
+            tbody.append(tr)
+            theas1.append(tbody)
+        }
+        console.log("list pendaftar")
+    }
+
+    function submitdata(){
+        const nama_input = document.getElementById("name")
+        const umur_input = document.getElementById("umur")
+        const uang_input = document.getElementById("uang")
+        if(!nama_input.value || !umur_input ||!uang_input){
+            alert("isi form yang kosong")
+        }else if(nama_input.value.length <= 9){
+            alert("minimal 10 karakter")
+        }else if(umur_input.value <= 24){
+            alert("minimal umur 25")
+        }else if(uang_input.value <= 99999 || uang_input.value >= 1000001){
+            alert("masukkan uang 100.000 sampai 1000000")
+        }else{
+            const button2 = document.getElementById("tombol")
+            button2.innerHTML = "Data sedang di proses"
+            button2.className = "btn btn-warning disabled"
+            setTimeout(function(){
+                data_pendaftar.push({"nama" : nama_input.value,"umur" : umur_input.value,"uang" : uang_input})
+                console.log(data_pendaftar)
+                const button3 = document.getElementById("tombol")
+                button3.innerHTML = "data telah tersimpan"
+                button3.className ="btn btn-success disabled"
+                alert("sukses input data")
+                const button4 = document.getElementById("tombol")
+                button4.innerHTML ="Daftar"
+                button4.className ="btn btn-primary enable"
+            },4000) 
+
+            setTimeout(function(){
+                const button3 = document.getElementById("tombol")
+                button3.innerHTML="Data telah tersimpan"
+                button3.className="btn btn-success disabled"
+            },3000)
+        }
+    }
+
+    function tombolDaftar(){
+        const  webTampil =  new web()
+        webTampil.hapusForm()
+        webTampil.hapustable()
+        webTampil.Munculform()
+    }
+
+    function tombolList(){
+    const webTampil = new web()
+    webTampil.hapusForm()
+    webTampil.hapustable()
+    webTampil.headertable()
+    tampiltable()
+    tampilrata()
+    }
+  </script>
+  </html>
